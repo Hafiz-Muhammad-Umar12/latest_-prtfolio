@@ -7,7 +7,7 @@ import { FaLinkedin, FaTwitter, FaComments } from "react-icons/fa";
 import { SiUpwork, SiFiverr } from "react-icons/si";
 
 const Hero = () => {
-  const [init, setInit] = useState(false);
+  const [, setInit] = useState(false);
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {

@@ -22,7 +22,7 @@ export default function ContactPage() {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: unknown) => {
     console.log(data);
     alert("Message sent successfully 🚀");
   };

@@ -62,7 +62,7 @@ export default function Header() {
           scrolled ? "mt-0" : "mt-10"
         }`}
       >
-        {navLinks.map((link, i) => (
+        {navLinks.map((link,) => (
           <motion.div
             key={link.name}
             whileHover={{ scale: 1.1 }}

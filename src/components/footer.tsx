@@ -1,49 +1,77 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Linkedin, Twitter, Mail } from "lucide-react";
-
+import {
+  Github,
+  Linkedin,
+  Twitter,
+  Mail,
+  Facebook,
+  Instagram,
+  Youtube,
+  Cpu,
+} from "lucide-react";
 
 export default function Footer() {
+  const socialLinks = [
+    { icon: <Github />, link: "https://github.com/Hafiz-Muhammad-Umar12" },
+    { icon: <Linkedin />, link: "https://www.linkedin.com/in/muhammad-umar-u786/" },
+    { icon: <Twitter />, link: "https://x.com/muhaammad_umar_" },
+    { icon: <Instagram />, link: "https://instagram.com" },
+    { icon: <Facebook />, link: "https://facebook.com" },
+    { icon: <Youtube />, link: "https://youtube.com" },
+    { icon: <Mail />, link: "mailto:umarshabbir.ai@gmail.com" },
+  ];
+
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-br from-gray-950 via-black to-gray-900 text-gray-300 pt-16">
-      {/* Animated Gradient Waves Background */}
+    <footer className="relative overflow-hidden bg-gradient-to-b from-black via-gray-950 to-gray-900 text-gray-300 pt-20 pb-10 border-t border-gray-800">
+      {/* 🌌 Animated 3D Gradient Orbs */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute w-[200%] h-[200%] animate-[spin_30s_linear_infinite] bg-[conic-gradient(at_top_right,_#4f46e5,_#9333ea,_#ec4899,_#f97316,_#4f46e5)] opacity-20 blur-3xl"></div>
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+          className="absolute w-[200%] h-[200%] bg-[conic-gradient(at_top_right,_#10b981,_#2563eb,_#9333ea,_#ec4899,_#10b981)] opacity-25 blur-3xl"
+        ></motion.div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10 text-center md:text-left relative z-10">
-        {/* Branding */}
+      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10 relative z-10">
+        {/* 🧠 Brand Identity */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="backdrop-blur-lg bg-white/5 rounded-2xl p-6 shadow-lg"
+          className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-xl"
         >
-          <h2 className="text-2xl font-bold text-white mb-3">
-            Muhammad Umar
-          </h2>
-          <p className="text-sm leading-relaxed text-gray-400">
-            Building the future with{" "}
-            <span className="text-indigo-400 font-semibold">Agentic AI</span>, 
-            automations, and full-stack web solutions that transform businesses.
+          <div className="flex items-center gap-3 mb-3">
+            <Cpu className="text-emerald-400 w-6 h-6 animate-pulse" />
+            <h2 className="text-2xl font-extrabold text-white">
+              Muhammad Umar
+            </h2>
+          </div>
+          <p className="text-sm text-gray-400 leading-relaxed">
+            Crafting the future with{" "}
+            <span className="text-emerald-400 font-semibold">
+              Agentic AI
+            </span>{" "}
+            and scalable Next.js systems. Building intelligent digital
+            ecosystems for the new web.
           </p>
         </motion.div>
 
-        {/* Quick Links */}
+        {/* ⚡ Quick Navigation */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9 }}
-          className="backdrop-blur-lg bg-white/5 rounded-2xl p-6 shadow-lg"
+          className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-xl"
         >
           <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
-          <ul className="space-y-2">
+          <ul className="space-y-2 text-sm">
             {["Home", "About", "Projects", "Services", "Contact"].map((item) => (
               <li key={item}>
                 <a
                   href={`#${item.toLowerCase()}`}
-                  className="hover:text-indigo-400 transition-colors"
+                  className="hover:text-emerald-400 transition-colors"
                 >
                   {item}
                 </a>
@@ -52,26 +80,24 @@ export default function Footer() {
           </ul>
         </motion.div>
 
-        {/* Socials */}
+        {/* 🌍 Connect / Socials */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="backdrop-blur-lg bg-white/5 rounded-2xl p-6 shadow-lg"
+          className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-xl"
         >
           <h3 className="text-lg font-semibold text-white mb-4">Connect</h3>
-          <div className="flex justify-center md:justify-start space-x-5">
-            {[
-              { icon: <Github className="w-5 h-5" />, link: "https://github.com" },
-              { icon: <Linkedin className="w-5 h-5" />, link: "https://linkedin.com" },
-              { icon: <Twitter className="w-5 h-5" />, link: "https://twitter.com" },
-              { icon: <Mail className="w-5 h-5" />, link: "mailto:youremail@gmail.com" },
-            ].map((item, i) => (
+          <div className="flex flex-wrap justify-center md:justify-start gap-4">
+            {socialLinks.map((item, i) => (
               <motion.a
                 key={i}
                 href={item.link}
-                whileHover={{ scale: 1.2, rotate: 6 }}
-                className="p-3 rounded-full bg-gray-800 hover:bg-indigo-500 transition shadow-md"
+                target="_blank"
+                rel="noreferrer"
+                whileHover={{ scale: 1.2, rotate: 8 }}
+                className="p-3 rounded-full bg-gray-800 hover:bg-emerald-600 
+                  transition shadow-md hover:shadow-[0_0_20px_#10b981]"
               >
                 {item.icon}
               </motion.a>
@@ -79,34 +105,46 @@ export default function Footer() {
           </div>
         </motion.div>
 
-        {/* Newsletter */}
+        {/* 🧾 Newsletter */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1 }}
-          className="backdrop-blur-lg bg-white/5 rounded-2xl p-6 shadow-lg"
+          className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-xl"
         >
-          <h3 className="text-lg font-semibold text-white mb-4">Stay Updated</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">
+            Stay Updated
+          </h3>
           <p className="text-sm text-gray-400 mb-3">
-            Subscribe for latest updates on AI, Web & Automation.
+            Get the latest insights on AI, Next.js, and innovation.
           </p>
-          <form className="flex items-center bg-gray-800 rounded-lg overflow-hidden">
+          <form className="flex bg-gray-900/60 rounded-lg overflow-hidden border border-gray-700 focus-within:border-emerald-500 transition">
             <input
               type="email"
               placeholder="Enter your email"
-              className="w-full px-3 py-2 text-sm bg-transparent outline-none text-white"
+              className="w-full px-3 py-2 text-sm bg-transparent text-white outline-none"
             />
-            <button className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 transition text-white text-sm font-medium">
+            <button
+              type="submit"
+              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 
+                transition text-white text-sm font-medium"
+            >
               Subscribe
             </button>
           </form>
         </motion.div>
       </div>
 
-      {/* Bottom Line */}
-      <div className="border-t border-gray-700 mt-12 pt-6 text-center text-sm text-gray-500 relative z-10">
-        © {new Date().getFullYear()} Muhammad Umar. All rights reserved
-      </div>
+      {/* ⚙️ Footer Base Line */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+        className="mt-16 text-center text-xs text-gray-500 tracking-wide"
+      >
+        © {new Date().getFullYear()} Muhammad Umar  Built with{" "}
+        <span className="text-emerald-400">Next.js + Agentic AI</span>.
+      </motion.div>
     </footer>
   );
 }

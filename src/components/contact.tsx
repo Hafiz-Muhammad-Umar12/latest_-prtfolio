@@ -1,187 +1,195 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Send } from "lucide-react";
-
-// ✅ Validation Schema
-const schema = z.object({
-  name: z.string().min(2, "Name is too short"),
-  email: z.string().email("Invalid email"),
-  message: z.string().min(10, "Message is too short"),
-});
+import {
+  FaEnvelope,
+  FaLinkedin,
+  FaGithub,
+  FaTwitter,
+} from "react-icons/fa";
 
 export default function ContactPage() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(schema),
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState("");
+  const [displayText, setDisplayText] = useState("");
+  const greeting = "Bridging innovation and intelligence through collaboration ⚡";
 
-  const onSubmit = (data: unknown) => {
-    console.log(data);
-    alert("Message sent successfully 🚀");
+  // Typewriter Effect
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      setDisplayText(greeting.slice(0, index));
+      index++;
+      if (index > greeting.length) clearInterval(interval);
+    }, 45);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("⏳ Sending your message...");
+    setTimeout(() => {
+      setStatus("✅ Message delivered! I’ll connect with you soon.");
+      setFormData({ name: "", email: "", message: "" });
+    }, 1200);
   };
 
   return (
-    <section
-      id="contact"
-      className="relative py-24 bg-white text-gray-900 overflow-hidden"
-    >
-      {/* Background Glow */}
-      <div className="absolute top-40 -left-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-40 -right-20 w-96 h-96 bg-emerald-400/10 rounded-full blur-3xl"></div>
+    <section id="contact" className="relative min-h-screen flex flex-col items-center justify-center bg-white text-gray-900 overflow-hidden px-6 py-24">
+      {/* ===== Background Grid ===== */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.06),transparent_70%)]" />
+      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
-        {/* Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-extrabold text-center mb-16"
-        >
-          Let’s <span className="text-emerald-600">Connect</span>
-        </motion.h2>
+      {/* ===== Header ===== */}
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        className="text-5xl md:text-6xl font-extrabold mb-4 text-center"
+      >
+        Let’s <span className="text-emerald-600">Collaborate</span>
+      </motion.h1>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-2xl p-8 border border-gray-200 shadow-xl hover:shadow-2xl transition-all duration-500"
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="text-gray-500 text-center max-w-2xl mb-14"
+      >
+        Whether it’s <span className="text-emerald-600 font-medium">AI systems</span>, intelligent automation, or modern web experiences 
+        let’s connect ideas that move technology forward.
+      </motion.p>
+
+      {/* ===== Contact Container ===== */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6 }}
+        className="relative z-10 w-full max-w-5xl bg-white border border-gray-200 
+        rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] overflow-hidden 
+        grid md:grid-cols-2 gap-10 p-10"
+      >
+        {/* ===== LEFT SECTION ===== */}
+        <div className="flex flex-col justify-center pr-0 md:pr-6">
+          <motion.h2
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-4xl font-bold mb-4 text-gray-900"
           >
-            <h3 className="text-2xl font-semibold mb-6">Get in Touch</h3>
-            <ul className="space-y-5">
-              <li className="flex items-center gap-4">
-                <Mail className="w-6 h-6 text-emerald-600" />
-                <a
-                  href="mailto:your@email.com"
-                  className="hover:text-emerald-600 transition font-medium"
-                >
-                  your@email.com
-                </a>
-              </li>
-              <li className="flex items-center gap-4">
-                <Phone className="w-6 h-6 text-emerald-600" />
-                <a
-                  href="tel:+123456789"
-                  className="hover:text-emerald-600 transition font-medium"
-                >
-                  +123 456 789
-                </a>
-              </li>
-              <li className="flex items-center gap-4">
-                <MapPin className="w-6 h-6 text-emerald-600" />
-                <span className="font-medium">Karachi, Pakistan</span>
-              </li>
-            </ul>
+            Let’s Build <span className="text-emerald-600">Something Great</span>
+          </motion.h2>
 
-            {/* Social Links */}
-            <div className="mt-8 flex gap-6">
-              <a
-                href="#"
-                className="p-3 rounded-full bg-gray-100 hover:bg-emerald-100 text-gray-700 hover:text-emerald-600 transition"
-              >
-                <Github className="w-6 h-6" />
-              </a>
-              <a
-                href="#"
-                className="p-3 rounded-full bg-gray-100 hover:bg-emerald-100 text-gray-700 hover:text-emerald-600 transition"
-              >
-                <Linkedin className="w-6 h-6" />
-              </a>
-              <a
-                href="#"
-                className="p-3 rounded-full bg-gray-100 hover:bg-emerald-100 text-gray-700 hover:text-emerald-600 transition"
-              >
-                <Twitter className="w-6 h-6" />
-              </a>
-            </div>
-          </motion.div>
+          <p className="text-gray-500 mb-6 leading-relaxed">
+            I design and develop intelligent digital ecosystems — 
+            merging <strong>Next.js</strong> architecture with <strong>Agentic AI</strong> 
+            to deliver automation and scalability.
+          </p>
 
-          {/* Contact Form */}
-          <motion.form
-            onSubmit={handleSubmit(onSubmit)}
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-2xl p-8 border border-gray-200 shadow-xl hover:shadow-2xl transition-all duration-500"
-          >
-            <h3 className="text-2xl font-semibold mb-6">Send Me a Message</h3>
-            <div className="space-y-5">
-              <div>
-                <input
-                  type="text"
-                  placeholder="Your Name"
-                  {...register("name")}
-                  className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-emerald-500 outline-none"
-                />
-                {errors.name && (
-                  <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
-                )}
-              </div>
+          {/* Typewriter Animation */}
+          <p className="text-emerald-600 font-mono text-sm h-6 mb-6">{displayText}</p>
 
-              <div>
-                <input
-                  type="email"
-                  placeholder="Your Email"
-                  {...register("email")}
-                  className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-emerald-500 outline-none"
-                />
-                {errors.email && (
-                  <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-                )}
-              </div>
-
-              <div>
-                <textarea
-                  rows={5}
-                  placeholder="Your Message"
-                  {...register("message")}
-                  className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-emerald-500 outline-none"
-                />
-                {errors.message && (
-                  <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
-                )}
-              </div>
-
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                type="submit"
-                className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl transition"
-              >
-                <Send className="w-5 h-5" /> Send Message
-              </motion.button>
-            </div>
-          </motion.form>
+          {/* Social Icons */}
+          <div className="flex space-x-6 text-2xl">
+            <a
+              href="mailto:umarshabbir.ai@gmail.com"
+              className="hover:text-emerald-600 transition-transform hover:scale-110"
+            >
+              <FaEnvelope />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/muhammad-umar-u786/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-emerald-600 transition-transform hover:scale-110"
+            >
+              <FaLinkedin />
+            </a>
+            <a
+              href="https://github.com/Hafiz-Muhammad-Umar12"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-emerald-600 transition-transform hover:scale-110"
+            >
+              <FaGithub />
+            </a>
+            <a
+              href="https://x.com/muhaammad_umar_"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-emerald-600 transition-transform hover:scale-110"
+            >
+              <FaTwitter />
+            </a>
+          </div>
         </div>
 
-        {/* Optional Map */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-          className="mt-16 rounded-2xl overflow-hidden shadow-xl border border-gray-200"
+        {/* ===== RIGHT SECTION (FORM) ===== */}
+        <motion.form
+          onSubmit={handleSubmit}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.4 }}
+          className="space-y-5"
         >
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28937.51258090054!2d67.0011!3d24.8607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33e3aa3b38d2d%3A0x5e6f3ec9ff3a8e5!2sKarachi!5e0!3m2!1sen!2s!4v123456789"
-            width="100%"
-            height="350"
-            style={{ border: 0 }}
-            loading="lazy"
-          ></iframe>
-        </motion.div>
-      </div>
+          {["name", "email", "message"].map((field) => (
+            <div key={field}>
+              <label className="block text-sm font-medium text-gray-700 mb-1 capitalize">
+                {field === "email" ? "Email Address" : field}
+              </label>
+              {field === "message" ? (
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows={5}
+                  placeholder="Describe your idea or project..."
+                  required
+                  className="w-full border border-gray-300 rounded-xl px-4 py-3 
+                    text-gray-800 placeholder-gray-400 text-sm focus:ring-2 
+                    focus:ring-emerald-600 focus:outline-none transition"
+                />
+              ) : (
+                <input
+                  type={field === "email" ? "email" : "text"}
+                  name={field}
+                  value={formData[field as keyof typeof formData]}
+                  onChange={handleChange}
+                  placeholder={`Enter your ${field}`}
+                  required
+                  className="w-full border border-gray-300 rounded-xl px-4 py-3 
+                    text-gray-800 placeholder-gray-400 text-sm focus:ring-2 
+                    focus:ring-emerald-600 focus:outline-none transition"
+                />
+              )}
+            </div>
+          ))}
+
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            type="submit"
+            className="w-full bg-emerald-600 py-3 rounded-xl font-semibold text-white 
+              shadow-md hover:bg-emerald-700 transition-all duration-300"
+          >
+            Send Message
+          </motion.button>
+
+          {status && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-sm text-blue-600 mt-3"
+            >
+              {status}
+            </motion.p>
+          )}
+        </motion.form>
+      </motion.div>
     </section>
   );
 }

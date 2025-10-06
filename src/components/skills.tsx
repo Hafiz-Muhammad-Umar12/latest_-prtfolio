@@ -1,104 +1,94 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code, Database, Cpu, Wrench } from "lucide-react";
+import { FaReact, FaNode, FaRobot, FaCloud, FaDatabase } from "react-icons/fa";
+import { SiNextdotjs, SiTailwindcss, SiPython } from "react-icons/si";
 
 const skills = [
-  {
-    category: "Frontend Development",
-    icon: <Code className="w-6 h-6 text-emerald-600" />,
-    items: ["Next.js", "React.js", "Tailwind CSS", "Framer Motion", "Three.js"],
-  },
-  {
-    category: "Backend Development",
-    icon: <Database className="w-6 h-6 text-emerald-600" />,
-    items: ["Node.js", "Express.js", "MongoDB", "PostgreSQL", "REST APIs"],
-  },
-  {
-    category: "AI & Advanced",
-    icon: <Cpu className="w-6 h-6 text-emerald-600" />,
-    items: [
-      "OpenAI API",
-      "Agentic AI",
-      "Python",
-      "Open AI Agents SDK",
-      "LangChain",
-      "Machine Learning",
-    ],
-  },
-  {
-    category: "Tools & Others",
-    icon: <Wrench className="w-6 h-6 text-emerald-600" />,
-    items: ["Git/GitHub", "Docker", "Figma", "Vercel", "CI/CD"],
-  },
+  { id: 1, name: "Agentic AI Agents", tag: "Autonomous Intelligence", icon: <FaRobot />, color: "from-pink-500 to-red-600" },
+  { id: 2, name: "React & Next.js", tag: "Frontend Innovation", icon: <FaReact />, color: "from-cyan-400 to-blue-600" },
+  { id: 3, name: "Python & AI Tools", tag: "Machine Learning Core", icon: <SiPython />, color: "from-sky-500 to-cyan-600" },
+  { id: 4, name: "LLMs & Chatbots", tag: "Conversational Systems", icon: <SiNextdotjs />, color: "from-gray-700 to-black" },
+  { id: 5, name: "Node.js & APIs", tag: "Backend Logic", icon: <FaNode />, color: "from-green-400 to-emerald-600" },
+  { id: 6, name: "Cloud & DevOps", tag: "Infrastructure Wizardry", icon: <FaCloud />, color: "from-purple-500 to-indigo-600" },
+  { id: 7, name: "Databases (SQL)", tag: "Data Architecture", icon: <FaDatabase />, color: "from-orange-500 to-yellow-600" },
+  { id: 8, name: "Tailwind CSS", tag: "Design System Craft", icon: <SiTailwindcss />, color: "from-teal-400 to-cyan-500" },
 ];
 
 export default function SkillsSection() {
   return (
-    <section
-      id="skills"
-      className="relative py-24 bg-gradient-to-br from-white via-gray-50 to-gray-100 overflow-hidden"
-    >
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
-        {/* Section Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: -30 }}
+    <section id="skills" className="relative py-28 bg-gradient-to-b from-gray-50 via-white to-gray-100 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+        
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-extrabold text-center mb-16 text-gray-900"
+          className="text-center mb-20"
         >
-          My <span className="text-emerald-600">Skills</span>
-        </motion.h2>
+          <span className="uppercase text-sm font-bold tracking-wider text-emerald-600">
+            My Expertise
+          </span>
+          <h2 className="text-4xl lg:text-6xl font-extrabold mt-4 text-gray-900">
+            Skills & <span className="text-emerald-600 bg-clip-text">Technologies</span>
+          </h2>
+          <p className="mt-6 max-w-2xl mx-auto text-lg text-gray-600">
+            A showcase of tools and technologies I use to build scalable, intelligent, and modern solutions.
+          </p>
+        </motion.div>
 
         {/* Skills Grid */}
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-2">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {skills.map((skill, i) => (
             <motion.div
-              key={skill.category}
-              initial={{ opacity: 0, y: 60 }}
+              key={skill.id}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.2, duration: 0.8 }}
+              transition={{ duration: 0.7, delay: i * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.05 }}
-              className="relative rounded-2xl bg-white/80 backdrop-blur-xl border border-gray-200 
-                         shadow-lg hover:shadow-emerald-500/20 transition-all duration-500 p-8"
+              whileHover={{ y: -8, scale: 1.05 }}
+              className="relative bg-white/60 backdrop-blur-lg rounded-2xl shadow-xl p-8 flex flex-col items-center border border-gray-100 group overflow-hidden"
             >
-              {/* Icon with glow */}
-              <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 rounded-xl bg-emerald-50 relative">
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-green-400 to-emerald-500 opacity-30 blur-lg animate-pulse"></div>
-                  <div className="relative z-10">{skill.icon}</div>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900">
-                  {skill.category}
-                </h3>
-              </div>
+              {/* Animated Icon */}
+              <motion.div
+                animate={{ rotate: [0, 8, -8, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className={`relative w-16 h-16 flex items-center justify-center rounded-2xl bg-gradient-to-r ${skill.color} text-white text-3xl mb-6 shadow-lg`}
+              >
+                {skill.icon}
+                {/* Glowing aura */}
+                <motion.div
+                  className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${skill.color} blur-2xl opacity-40`}
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </motion.div>
 
-              {/* Skill Chips */}
-              <div className="flex flex-wrap gap-3">
-                {skill.items.map((item, idx) => (
-                  <motion.span
-                    key={idx}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-4 py-2 bg-gradient-to-r from-emerald-50 to-green-50 
-                               text-emerald-700 font-medium rounded-xl border border-emerald-200 
-                               shadow-sm cursor-pointer hover:shadow-md hover:from-emerald-100 
-                               hover:to-green-100 transition-all duration-300"
-                  >
-                    {item}
-                  </motion.span>
-                ))}
-              </div>
+              {/* Skill Title */}
+              <h3 className="text-lg font-bold text-gray-900 mb-2">{skill.name}</h3>
+
+              {/* Unique Tagline */}
+              <motion.span
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-sm text-emerald-600 font-medium tracking-wide mt-2"
+              >
+                {skill.tag}
+              </motion.span>
+
+              {/* Hover Glow Effect */}
+              <div className={`absolute -inset-0.5 bg-gradient-to-r ${skill.color} opacity-0 group-hover:opacity-10 blur-2xl transition`} />
             </motion.div>
           ))}
         </div>
       </div>
 
-      {/* Background Glow Effects */}
-      {/* <div className="absolute -top-20 left-10 w-96 h-96 bg-emerald-400/20 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-0 right-0 w-[30rem] h-[30rem] bg-green-300/10 rounded-full blur-3xl"></div> */}
+      {/* Background Aesthetic Blobs */}
+      <div className="absolute -top-40 -left-40 w-[28rem] h-[28rem] bg-emerald-200 rounded-full blur-3xl opacity-30"></div>
+      <div className="absolute -bottom-40 -right-40 w-[28rem] h-[28rem] bg-blue-300 rounded-full blur-3xl opacity-30"></div>
     </section>
   );
 }

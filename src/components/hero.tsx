@@ -53,7 +53,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center text-center overflow-hidden font-[Inter] mx-auto max-w-screen-2xl px-6">
+    <section className="relative min-h-screen mt-32 flex items-center justify-center text-center overflow-hidden font-[Inter] mx-auto max-w-screen-2xl px-6">
       {/* Background Particles */}
       <Particles
         id="tsparticles"
